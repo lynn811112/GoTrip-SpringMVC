@@ -1,0 +1,10 @@
+img {
+	object-fit: cover;
+	width: 70px;
+	height: 70px;
+}
+
+table a {
+	color: black;
+	font-weight: bold;
+}
