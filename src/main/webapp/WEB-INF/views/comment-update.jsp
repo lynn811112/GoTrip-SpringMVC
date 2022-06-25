@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.lynn.model.*"%>
+<%@ page import="com.ispan.model.*"%>
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
@@ -17,6 +17,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/stars.css'/>">
 <!-- 	<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet"> -->
@@ -50,7 +51,7 @@ img {
 				<div class="col-sm-6 ">
 					<div class="card">
 						<div class="card-body card-block">
-							<form:form action="update/save" method="POST" modelAttribute="comment" cssClass="form-horizontal" enctype="multipart/form-data">
+							<form:form action="update/save" method="POST" id="updateForm" modelAttribute="comment" cssClass="form-horizontal" enctype="multipart/form-data">
 								<div class="mb-4 row">
 									<form:label path="id" cssClass="col-sm-3 col-form-label">評論編號</form:label>
 									<div class="col-sm-9">
@@ -181,7 +182,7 @@ img {
 										<a class="btn btn-outline-warning rounded-pill mt-5 mb-4" href="<c:url value='/comments/' />">取消修改</a>
 									</div>
 									<div class="d-grid gap-2 col-6">
-										<form:button type="submit" class="btn btn-warning rounded-pill mt-5 mb-4" id="btn-insert">送出</form:button>
+										<form:button type="submit" class="btn btn-warning rounded-pill mt-5 mb-4" id="btn-update">送出</form:button>
 									</div>
 								</div>
 							</form:form>
@@ -205,6 +206,8 @@ img {
 	<script src="<c:url value='/js/jquery-3.6.0.js'/>"></script>
 	<script src="<c:url value='/js/plugins.js'/>"></script>
 	<script src="<c:url value='/js/main.js'/>"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 		let sum = 0;
 		if ("${comment.getImage1()}" != "") {
@@ -279,7 +282,17 @@ img {
 						isImagesVaild ? hideInvalidText($('#images')) : showInvalidText($('#images'));
 						$("form").addClass('validated');
 					} else {
-						$('#btn-update').submit();
+						e.preventDefault();		
+				 		Swal.fire({
+			 			  icon: 'success',
+			 			  title: '儲存成功',
+			 			  showConfirmButton: false,
+			 			  timer: 1500
+			 			});
+				 		
+				 		setInterval(function() {
+				 			$('#updateForm').submit()
+				 		}, 1500);
 					}
 				});
 				

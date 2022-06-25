@@ -54,7 +54,7 @@
                     <div class="card">
                         <div class="card-body card-block">
 
-                            <form:form action="new/save" method="POST" modelAttribute="comment" cssClass="form-horizontal needs-validation"  enctype="multipart/form-data">
+                            <form:form action="new/save" method="POST" modelAttribute="comment" id="insertForm" cssClass="form-horizontal needs-validation"  enctype="multipart/form-data">
                                 
                                 <div class="mb-4 row">
                                     <form:label path="itemTb" for="itemTb" cssClass="col-sm-3 col-form-label">項目類別</form:label>
@@ -217,7 +217,14 @@
 		    }
 		}
 		
-
+// 		function saveComment(e) {
+// 		Swal.fire({
+// 			  icon: 'success',
+// 			  title: 'Your work has been saved',
+// 			  showConfirmButton: false,
+// 			  timer: 1500
+// 			})
+// 		}
 		
 		jQuery(document).ready(function($){
 	        $(function() {
@@ -241,7 +248,17 @@
 						isImagesVaild ? hideInvalidText($('#images')) : showInvalidText($('#images'));
 						$("form").addClass('validated');
 					} else {
-						$('#btn-insert').submit();
+						e.preventDefault();		
+				 		Swal.fire({
+			 			  icon: 'success',
+			 			  title: '儲存成功',
+			 			  showConfirmButton: false,
+			 			  timer: 1500
+			 			});
+				 		
+				 		setInterval(function() {
+				 			$('#insertForm').submit()
+				 		}, 1500);
 					}
 				});
 				

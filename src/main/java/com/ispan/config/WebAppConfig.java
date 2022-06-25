@@ -18,10 +18,11 @@ public class WebAppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+//		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
 		registry.addResourceHandler("/upload_images/**").addResourceLocations("/data/upload_images/");
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
+		registry.addResourceHandler("/partials/**").addResourceLocations("/WEB-INF/views/partials/");
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addRedirectViewController("/", "/comments");
+		registry.addRedirectViewController("/", "/index");
 	}
 	
 	@Bean

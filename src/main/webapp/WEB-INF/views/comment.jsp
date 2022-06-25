@@ -27,7 +27,6 @@
 <body>
 	<%-- side Bar (side bar請記得include進來) --%>
 	<%@include file="./partials/sidebar.jspf"%>
-<%-- 	<c:import url="/WEB_INF/views/partials/sidebar.jspf"></c:import>    --%>
 
 	<%-- main--%>
 	<main id="right-panel" class="right-panel">
@@ -99,86 +98,37 @@
 											<td>${comment.content}</td>
 											<td>
 												<c:if test="${not empty comment.getImage1()}">
-												    <img src="<c:url value='${comment.getImage1()}'/>" class="rounded" />
+												    <img src="<c:url value='/${comment.getImage1()}'/>" class="rounded" />
 												</c:if>
 												<c:if test="${not empty comment.getImage2()}">
-													<img src="<c:url value='${comment.getImage2()}'/>" class="rounded" />
+													<img src="<c:url value='/${comment.getImage2()}'/>" class="rounded" />
 												</c:if>												
 												<c:if test="${not empty comment.getImage3()}">
-													<img src="<c:url value='${comment.getImage3()}'/>" class="rounded" />
+													<img src="<c:url value='/${comment.getImage3()}'/>" class="rounded" />
 												</c:if>
 											</td>
 											<td style="padding-right: 0px">
-												<form action="<c:url value='comments/update'/>" method="GET" class="inline-block">
+												<form action="<c:url value='/comments/update'/>" method="GET" class="inline-block">
 													<input type="hidden" name="id" value="${comment.id}">
-													<button type="submit" class="edit btn btn-outline-warning btn-sm rounded-circle">
+													<button type="submit" id="delete${comment.id}" class="edit btn btn-outline-warning btn-sm rounded-circle">
 														<i class="bi bi-pencil-square"></i>
 													</button>
 												</form>
-<!-- 													<button type="button" class="delete btn btn-outline-info btn-sm rounded-circle "> -->
-<!-- 														<i class="bi bi-trash3"></i> -->
-<!-- 													</button> -->
-												<form action="<c:url value='comments/delete'/>" method="POST" class="inline-block">
-													<input type="hidden" name="id" value="${comment.id}">
-													<button type="submit" class="delete btn btn-outline-info btn-sm rounded-circle ">
+													<button type="button" onclick="deleteComment(${comment.id})" class="delete btn btn-outline-info btn-sm rounded-circle ">
 														<i class="bi bi-trash3"></i>
 													</button>
+												<form action="<c:url value='/comments/delete'/>" method="POST" id="deleteForm${comment.id}" class="inline-block">
+													<input type="hidden" name="id" value="${comment.id}">
+<!-- 													<button type="hidden" class="delete btn btn-outline-info btn-sm rounded-circle "> -->
+<!-- 														<i class="bi bi-trash3"></i> -->
+<!-- 													</button> -->
 												</form>
 											</td>
 										</tr>
 										
 									</c:forEach>
-									
-									
-<%-- 									
-// 									List<Comment> comments = (List<Comment>) request.getAttribute("comments");
-// 																for (Comment comment : comments) {
-<%-- 									%> --%>
-<%-- 									<form name="form" action="comment" method="POST" id="form<%=comment.getId()%>"> --%>
-<!-- 										<tr> -->
-<%-- <%-- 											<input type="hidden" name="id" value="<%=comment.getId()%>"> --%>
-<%-- <%-- 											<input type="hidden" name="itemTb" value="<%=comment.getItemTb()%>"> --%> 
-<%-- <%-- 											<input type="hidden" name="itemId" value="<%=comment.getItemId()%>"> --%> 
-<%-- 											<th scope="row" class="text-center"><%=comment.getId()%></th> --%>
-<!-- 											<th> -->
-<%-- 												<a class="comId" role="button" id="anchor<%=comment.getId()%>"> --%>
-<%-- 											 		<%=comment.getItemTb()%>_<%=comment.getItemId()%> --%>
-<!-- 												</a> -->
-<!-- 											</th> -->
-<%-- 											<td><%=comment.getUserId()%></td> --%>
-<%-- 											<td><%=comment.getDate()%></td> --%>
-<%-- 											<td style="text-align: center;"><%=comment.getRating()%><i class="bi bi-star-fill text-warning"></i></td> --%>
-<%-- 											<td><%=comment.getContent()%></td> --%>
-<!-- 											<td> -->
-<%-- 												<%  if (comment.getImage1() != null) {%>  --%>
-<%-- 													<img src="<%=comment.getImage1()%>" class="rounded" /> --%>
-<%-- 												<% 	} --%>
-<%--  													if (comment.getImage2() != null) { %>  --%>
-<%-- 													<img src="<%=comment.getImage2()%>" class="rounded" />  --%>
-<%-- 												<% 	} --%>
-<%--  													if (comment.getImage3() != null) { %>  --%>
-<%-- 													<img src="<%=comment.getImage3()%>" class="rounded" /> --%>
-<%-- 												<% 	} %>   --%>
-<!-- 											</td> -->
-<!-- 											<td style="padding-right: 0px"> -->
-<!-- 												<button type="submit" name="action" value="updateForm" class="edit btn btn-outline-warning btn-sm rounded-circle"> -->
-<!-- 													<i class="bi bi-pencil-square"></i> -->
-<!-- 												</button> -->
-<!-- 												<button type="button" class="delete btn btn-outline-info btn-sm rounded-circle "> -->
-<!-- 													<i class="bi bi-trash3"></i> -->
-<!-- 												</button> -->
-<!-- 												<button type="submit" name="action" value="delete" class="d-none"> -->
-<!-- 													<i class="bi bi-trash3"></i> -->
-<!-- 												</button> -->
-<!-- 											</td> -->
-<!-- 										</tr> -->
-<!-- 									</form> -->
-<%-- 									
-// 									}
- --%>
 								</tbody>
 							</table>
-
 						</div>
 					</div>
 				</div>
@@ -200,28 +150,27 @@
 	<script>
 		
 		// 確認刪除提示
-// 		const deleteButtons = document.querySelectorAll(".delete");
-// 		deleteButtons.forEach(function (deleteButton) {
+		function deleteComment(id) {
 // 			deleteButton.addEventListener("click",function(e){
-// 	 			e.preventDefault(); // 取消原始動作
-// 	 			Swal.fire({
-// 	 				title: '確定刪除?',
-// 	 				text: "確認刪除後將不可復原",
-// 	 				imageUrl: 'css/images/remote.svg',
-// 	 				imageWidth: 155,
-// 	 				imageHeight: 107,
-// 	 				showCancelButton: true,
-// 	 				confirmButtonColor: '#FF8D29',
-// 	 				cancelButtonColor: '#FFCD38',
-// 	 				confirmButtonText: '確認',
-// 	 				cancelButtonText: '取消',
-// 	 				reverseButtons: true
-// 	 			}).then((result) => {
-// 	 				if (result.isConfirmed) {
-// 	 					e.target.parentNode.nextElementSibling.click();
-// 	 				}
-// 	 			})
-// 			})
+	 			//e.preventDefault(); // 取消原始動作
+	 			Swal.fire({
+	 				title: '確定刪除?',
+	 				text: "確認刪除後將不可復原",
+	 				imageUrl: '<%=request.getContextPath()%>/css/images/remote.svg',
+	 				imageWidth: 155,
+	 				imageHeight: 107,
+	 				showCancelButton: true,
+	 				confirmButtonColor: '#FF8D29',
+	 				cancelButtonColor: '#FFCD38',
+	 				confirmButtonText: '確認',
+	 				cancelButtonText: '取消',
+	 				reverseButtons: true
+	 			}).then((result) => {
+	 				if (result.isConfirmed) {
+	 					document.getElementById("deleteForm"+id).submit();
+	 				}
+	 			})
+			}
 // 		})
 		
 

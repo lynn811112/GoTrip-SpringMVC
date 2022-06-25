@@ -1,4 +1,4 @@
-package com.ispan.model;
+//package com.ispan.model;
 //package com.lynn.model;
 //
 //import java.sql.Timestamp;

@@ -44,6 +44,7 @@ public class RootAppConfig {
 		props.put("hibernate.dialect", org.hibernate.dialect.SQLServerDialect.class);
 		props.put("hibernate.show_sql", Boolean.TRUE);
 		props.put("hibernate.format_sql", Boolean.TRUE);
+		props.put("hibernate.hbm2ddl.auto","update");
 		return props;
 	}
 	

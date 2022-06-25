@@ -38,6 +38,11 @@ public class CommentController {
 //		return "comment";
 //	}
 
+	@GetMapping("/index")
+	public String showIndex(Model model) {
+		return "index";
+	}
+	
 	@GetMapping("/comments")
 	public String showComments(Model model) {
 		List<Comment> comments = cService.getAllComments();
@@ -104,7 +109,7 @@ public class CommentController {
 	}
 
 	@PostMapping("/comments/delete")
-	public String deleteComment(@RequestParam("id") Integer id) {
+	public String deleteComment(@RequestParam("id") Integer id, Model model) {
 		cService.deleteComment(id);
 		return "redirect:/comments";
 	}
