@@ -24,7 +24,7 @@ public class MemberController {
 		m.addAttribute("members", mem);
 		return "index";
 
-	}
+	}hgfghfghfjh
 	
 	//顯示所有會員資料
 	@GetMapping("/member")
