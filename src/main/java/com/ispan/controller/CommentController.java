@@ -28,7 +28,9 @@ import com.ispan.service.CommentService;
 @Controller
 //@RequestMapping("comments")
 public class CommentController {
-
+	public void testname() throws Exception {
+		
+	}
 	@Autowired
 	private CommentService cService;
 
