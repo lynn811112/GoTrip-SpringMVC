@@ -42,18 +42,7 @@ public class CommentController {
 	public String showIndex(Model model) {
 		return "index";
 	}
-	@GetMapping("/index")
-	public String showIndex2(Model model) {
-		return "index";
-	}
-	@GetMapping("/index")
-	public String showIndex3(Model model) {
-		return "index";
-	}
-	@GetMapping("/index")
-	public String showIndex4(Model model) {
-		return "index";
-	}
+
 	
 	@GetMapping("/comments")
 	public String showComments(Model model) {
