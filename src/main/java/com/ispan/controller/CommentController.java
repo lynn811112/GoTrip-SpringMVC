@@ -37,6 +37,8 @@ public class CommentController {
 //		InitializeData.insertComments(null);
 //		return "comment";
 //	}
+	
+	//lynn在做測試!!!
 
 	@GetMapping("/index")
 	public String showIndex(Model model) {
